@@ -1,0 +1,25 @@
+name: Build VST3
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    runs-on: macos-13
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure (downloads JUCE automatically)
+        run: cmake -B build -G Xcode
+
+      - name: Build Release
+        run: cmake --build build --config Release
+
+      - name: Upload VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: BigKnobFilter-VST3-macOS
+          path: build/BigKnobFilter_artefacts/Release/VST3/*.vst3
+          if-no-files-found: error
