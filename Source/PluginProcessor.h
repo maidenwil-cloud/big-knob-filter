@@ -74,7 +74,7 @@ private:
     using IIRCoeffs = juce::dsp::IIR::Coefficients<float>;
 
     juce::dsp::ProcessorDuplicator<IIRFilter, IIRCoeffs> filter;
-    juce::dsp::WaveShaper<float> shaper;
+    juce::dsp::WaveShaper<float, std::function<float(float)>> shaper;
     juce::dsp::Gain<float> makeupGain;
     juce::dsp::Gain<float> outputGain;
 
